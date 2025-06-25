@@ -1,0 +1,202 @@
+Is Ireland Pricing Out Its Future?
+A Bayesian Analysis of Housing Affordability, Cost of Living, and Fertility Trends in Ireland (2010–2023)
+Abstract
+This study investigates the relationship between rising housing costs, cost of living pressures and the decline in birth rate and fertility rates in Ireland from 2010 to 2023. Using publicly available data from the Central Statistics Office, the study builds a Bayesian logistic regression model to estimate the probability of a low fertility year (defined as annual births falling below the long run national median) under conditions of high housing and cost burden. The analysis reveals that both burdens are significantly associated with the increased likelihood of low fertility outcomes. Notably in years with top quintile housing burdens, the probability of low fertility exceeds 75%. These findings provide evidence that affordability constraints are influencing demographic patterns. The model makes use of housing burden and cost of living as indicators.
+
+1. Introduction
+
+In modern day Ireland we face a number of prominent crises that affect us on a tangible level - a chronic housing shortage with prolonged housing affordability crisis and a declining birth rate. Since 2010 we have seen median housing prices rise by over 94%, and with these soaring house prices many couples report delaying or foregoing children due to financial instability and the difficulty to afford stable homes - a factor often linked to family planning decisions. Concurrently, the broader cost of living has increased, squeezing disposable incomes further.
+
+This study investigates the impact of rising housing costs and general living expenses on Irish fertility rates using a Bayesian framework, which quantifies uncertainty and incorporates prior demographic knowledge. Prior research has linked housing costs to fertility declines in other countries like Australia, China and South Korea where unaffordable housing markets are strongly associated with lower fertility intentions and delayed birth rates. Ireland's volatility - from post 2008 austerity to post COVID inflation warrants its own localized analysis. 
+
+This report investigates whether a similar relationship exists in Ireland, specifically what is the posterior probability that Irish couples will have 0 - 1 children, given the high housing costs and cost of living burdens? 
+Notably, most Irish research to date relies on conventional econometric or cohort analysis indicating a gap without a Bayesian approach in assessing the housing - fertility link, and addressing this gap could advance understanding of how multiple pressures combine and affect family formation and planning in Ireland. 
+
+Using a Bayesian framework, This project quantifies the strength of association while incorporating prior demographic knowledge from 2010-2013, a period before the post-crisis surge in housing prices, with the goal of not just simply identifying correlations but generating interpretable probabilities that reflect how likely couples are to limit family size due to affordability pressures. Using data from the Central Statistics Office (CSO) Vital Statistics, The Residential Property Price Index and EU-SILC/Household Budget Surveys this report will estimate how changes in housing and essential household expenditure burdens have shaped family reproductivity decisions and outcomes. 
+These datasets are accessed through the publicly available CSO online databases and statistical archives, the data is structured and cleaned to align by region, year and demographic group, to allow for analysis across key variables - housing prices, fertility outcomes and essential cost of living burden along with the average income - to allow the Bayesian model to generate joint posterior probabilities under different economic conditions.
+Exploratory analysis is conducted to understand distributional trends and correlations, Using pre 2014 fertility rates as priors, and likelihoods drawn from stratified data from 2014-2023, accounting for housing and cost-of-living burdens. This approach enables probabilistic reasoning about the impact of economic stressors on family planning decisions.
+
+With ongoing policy debates about Ireland’s demographic future, If housing and cost pressures are shown to significantly reduce fertility, targeted interventions - such as reducing housing burdens - could offer meaningful demographic benefits and have implications for long-term planning in areas like housing policy, family support, and sustainable economic development.
+2. Literature Review
+Once among the highest birthrates in Europe, Ireland's birth rate has been falling markedly since the early 2010’s. In 2010 there were 75,174 births in Ireland (16.5 per 1000 population) the highest annual total in over 100 years, but thereafter births have trended downward with the CSO reporting that births fell from 68930 in 2014 to only 54,678 in 2023. Correspondingly, the total fertility rate dropped from approximately 2 children in 2013 to 1.5 in 2023 falling below the replacement rate. In short, Ireland's fertility has declined sharply in recent years reaching levels far below replacement.
+
+Over the same period Ireland has seen a dramatic surge in residential property prices. CSO Residential Property Price Index (RPPI) data show national house prices roughly doubling since the 2010s. The median price of a dwelling jumped from €155,000 in 2013 to €355,000 in 2024 and average sale prices rose by over €100,000 in just 5 years. Urban areas such as Dublin have been especially affected, with the highest regional price growth in 2024 in Fingal Co. Dublin at +10% and the median house price in Dún Laoghaire-Rathdown was €660,000 in 2024. According to the CSO, the national RPPI in 2024 was 12.7% above its 2007 peak. In short Ireland's housing market has tightened considerably and may be out of reach for many households with prices having risen 8-9% year on year in 2023 and 2024.
+
+Rising housing costs have coincided with substantial inflation in living expenses, the 2022-23 Household Budget Survey shows how household essential costs (including fuel and utilities ) comprises nearly one quarter of average household expenditure (24.6%) with Urban households spending more than rural households and those with mortgages spending more on these than renters. Consumer prices have also risen in October 2023 the Consumer Price Index increased by ~5% with housing and energy costs up 7.2% year-on-year. 
+
+EU-SILC data indicates that Irish household incomes have barely kept pace. SILC 2023 (Covering the 2022 incomes) found the median at a mere increase of 5.8% from 2021 but when inflation was accounted for it was actually a decrease of 1.9%. Reflecting this squeeze the “At Risk of Poverty” rate crept up 14.10% without cost-of-living support.
+
+In short Irish households face higher rents, mortgage payments and general prices of utilities eroding disposable income even with wage increases and gains.
+
+A growing number of research links high housing costs to delayed childbearing and lower fertility, especially among younger adults in urban areas, among these are Australia, South Korea and China - each of these nations are grappling with sharply rising property prices and historically low birth rates. 
+In Australia a longitudinal research using Household,Income and Labour Dynamics in Australia (HILDA) survey data studies found that rising home value increase the likelihood of childbirth among homeowners , particularly in younger couples with mortgage commitments - which was assigned as likely due to perceived wealth effects and greater housing stability, while in contrast, renters exposed to high property prices are significantly less likely to have children / additional children if they already have one, as affordability constraints and insecurity around long term housing stability becomes more pronounced. These findings align with demographic trends - despite Australia's strong migration-driven population growth it's total fertility rate fell to 1.62 in 2022, the lowest in a decade and coinciding with surging housing prices in Sydney, Melbourne and Brisbane.
+
+Perhaps the most extreme case is South Korea with the world's lowest fertility rate and one of the world's most unaffordable housing markets. In 2023, the country's total fertility rate fell to 0.72, with urban centres like Seoul dipping below 0.6- far below replacement level. Government officials have explicitly acknowledged the link between housing costs and fertility collapse. Median apartment prices in Seoul exceed 14x times the average household income, contributing to delayed marriage and the postponement of childbirth and family formation, leading to what has become known as South Korea's “Sampo Generation” (Individuals who give up dating, marriage or family formation due to cost pressures).
+
+In China similar affordability barriers are in place due to rapid urbanisation and housing speculation, particularly in Tier 1 cities like Beijing, Shanghai, and Shenzhen. China’s population officially declined in 2023, but the country's total fertility rate had already dropped to 1.09 with even lower levels reported in urban centres. Several studies suggest that the exorbitant housing prices are a primary factor beyond the trend, particularly for younger residents in urban centres who delay marriage and childbirth until securing a home - a common precondition for family formation and a Chinese social norm. According to a study conducted by the China Population and development Research Center, the likelihood of having a second child is significantly lower among couples renting or struggling with housing debt. 
+
+When taken together, these studies from Australia, South Korea and China reinforce the hypothesis that housing affordability exerts a powerful influence on fertility behavior and family formation. Across these countries homeownership - or the lack thereof - has become a key determinant of if and or when couples decide to have children. The persistence of these trends even with government intervention suggests that this issue left without addressing structural housing inequality may increasingly entrench fertility declines.
+
+3. Dataset and Exploratory Analysis: 
+Drawing on four primary and publicly available datasets selected for their granularity, coverage and capacity to support derived indicators related to housing affordability, essential expenditure and family formation the RPPI and Vital Statistics datasets where accessed through the CSO’s open data portal downloadable CSV and Excel formats. The Eu-SILC and CPI datasets were accessed via the CSO’s statBank interface. All datasets were imported using Python(pandas), as shown in the attached Jupyter Notebook, where Google drive integration was used to manage extracted data files and ensure version control. 
+Each dataset offers critical insights into one or more of the core variables : housing burden, cost of living burden, fertility outcomes and the average wage in Ireland per year.
+
+Datasets description
+Residential Property Price Index (RPPI)
+This dataset includes regional and national house price trends from 2010 to 2023. It includes median and mean prices location, property type and prices and captures the housing market pressures that inform the “Housing Burden” variable in this analysis. In the case of the RPPI, a ZIP file containing transaction-level price records was downloaded and extracted. CSV files were read using a fallback mechanism for encoding mismatches. The notebook uses pandas for all file parsing and initial inspection confirming the data contained within.
+
+CSO Vital Statistics
+This dataset includes detailed annual birth reports including total live births by year, age of mother and number of previous children. This data allows us to compute fertility rates, the proportion of first time mothers and the average age at first birth. 
+Fig 1 -CSO Vital Stats Table
+The relevant variables extracted from this dataset include : number of first births , number of births by parity, median age of mothers, disaggregated by region and year.
+
+Consumer Price Index 
+This dataset was used to construct the cost of living burden variable. Annual CPI from 1975 to 2025 was accessed from the CSO, focusing specifically on housing related indices and indicators. These metrics served as proxies for inflationary pressures affecting essential household expenses. The CPI data was normalised and merged by year to align with other economic indicators in the analysis.
+
+The Household Budget Survey was accessed through the CSOs PxStat portal. While not directly used in modelling , its housing related expenditure data from 2015 -2020 was extracted to contextualise essential spending and validate the burden indicators. 
+
+Data Cleaning and Integration
+
+Once datasets were extracted, they were cleaned and aligned using python. Steps taken include : Temporal Alignment - all datasets were filtered to cover the period 2010 to 2023. For datasets the data was aggregated to the annual level and regional identifiers have been standardised. Outliers were identified and excluded and new variables were created. These were then joined into a single structured dataframe using pandas.
+
+Preliminary Exploratory Findings 
+Building on global literature and exploratory findings from Irish national datasets, this study tests whether similar mechanisms are in place in Ireland as are in the countries where previous studies have been done. 
+              Fig 2 - correlation matrix
+Quantitative indicators support this direction. The median house price has increased by 94% since 2010 and live births have decreased by 25%. In 
+
+Eu-SILC data further shows that in many regions - particularly urban - households now spend over 30% of their income on housing alone - a threshold commonly used to define affordability stress.
+
+These exploratory findings informed the structure of the Bayesian model and supported the development and creation of the Bayesian model and supported the formation of hypotheses tested in subsequent analysis.
+
+Fig 3 - Births vs House Prices 2010 -2024
+
+Fig 4 - Births, House Prices, average wages and CPI by year  2010 -2024
+
+Hypothesis and Research Questions
+Prior research from the aforementioned countries has consistently shown that housing affordability delays family formation and suppresses fertility, especially among renters and young couples facing economic insecurity. These patterns are echoed in Irish trends, where the rapid rise in housing prices since 2010 - particularly in urban centers like Dublin - has coincided with a notable drop in birth rates as seen in the CSO’s Vital Statistics. 
+
+Exploratory analysis of the Irish data reveals that median house prices have risen by over 90% since 2010, with Dublin seeing the sharpest increases. Birth rates have declined during this period - despite a growing population. A significant portion of households in urban regions spend more than 30% of their disposable income on housing - a level which is considered as a high housing cost burden and rising essential household expenses relative to disposable income further compound financial strain.
+
+
+
+Given these observations, the following hypotheses are proposed. 
+To investigate this further the following research questions are posed:
+
+How have rising housing prices and housing cost burdens correlated with changes in Irish birth rates since 2010?
+ Can we estimate the posterior probability of a household having 0-1 children conditional on housing burden and cost of living burden?
+
+
+From these research question we can derive the following hypotheses : 
+H1: Rising house prices and increasing housing burden (measured as median house price relative to annual wage) are positively associated with the probability of a low fertility year.
+H2: The joint presence of high housing burden and high cost of living burden significantly increase the posterior probability of a low fertility year compared to either factor on their own.
+
+4. Methods Used
+These hypotheses and questions are addressed using a Bayesian framework allowing for the incorporation of prior demographic knowledge of the pre-2014 fertility rates.
+Data was collected from publicly available CSO sources including: the RPPI, CSO Vital Statistics and CPI.
+Variables were cleaned and merged using pandas,ensuring consistent alignment by year and region. Derived variables include:
+
+
+High_Burden : 1 f burden is above median
+Housing_Burden : Ration of median house price to annual wage
+Cost_of_Living_Index : Based on normalised consumer price data
+High_Cost :1 if cost index above median
+Low_Fertility: 1 if annual births below the long-run median
+Exploratory Data Analysis (EDA) was conducted using seaborn and matplotlib. Time series graphs, bar charts, and quintile-based change plots were produced to identify trends and burden thresholds.
+
+These visual insights informed the design of a Bayesian logistic regression model. The probability of a low-fertility year was modeled as a function of high housing and cost burdens. The logistic regression equation was specified as : 
+
+logit(P(Low Fertilityt)) = β0 + β1 ⋅ HighHousingBurdent + β2 ⋅ HighCostBurdent
+
+Each year’s fertility outcome, Yt, was assumed to Bernoulli distribution : 
+
+Yt ∼ Bernoulli(θt) where logit(θt) = β0 + β1X1,t + β2X2,t 
+
+The prior prior distributions were specified as weakly informative Normal(0,1):
+
+β0, β1, β2 ∼ N (0, 1) 
+
+Bayes’ Theorem was used to update beliefs and generate the posterior:
+
+P(β ∣ Y) ∝ P(Y ∣ β) ⋅ P(β)
+
+The model was implemented in PyMC using the No-U-Turn Sampler for efficient sampling. Posterior inference was drawn from 2,000 samples with a burn-in of 1,000, yielding estimates for each parameter’s posterior mean, standard deviation, and 94% Highest Density Interval (HDI). 
+
+Model fit and trace plots confirmed convergence. Posterior probabilities were then plotted to assess how housing and cost burdens influenced the likelihood of low fertility years.
+
+
+Central to this study is the visual representations developed iteratively using matplotlib and seaborn. These charts were designed for maximum interpretability and included:
+Error Bar Charts to display projected fertility rates with 94% HDI across housing cost brackets. An example of these figures are in fig 5.
+Bar plots showing the percentage change in births across median house price quintiles, highlighting thresholds where fertility decline accelerates.
+Fig 5 - Error Bar Charts
+All visuals followed a clear and consistent aesthetic with explanatory annotations,grid lines and axis scaling for clarity.
+
+
+
+
+5. Results and findings
+Posterior Model Summary
+The Bayesian model indicates:
+High Housing Burden : strongly increases the probability of a low-fertility year. The posterior mean suggests a 75% likelihood of a low fertility year under housing pressure.
+High Cost of Living : high cost of living adds compounding risk, with posterior increases in low fertility probability where both burdens are present.
+The 94% Highest Density Intervalsfor both parameters exclude 0 indicating strong and statistically credible associations and a clear concentration and elevated risk level.Fig 6 - Percentage Change in Births vs Median House Price Quintiles
+The fertility decline however is not linear, In figure 6  the highest two quantiles were associated with dramatic fertility drops : -16% and -17.3% respectively. This steep decline aligns with affordability thresholds and validates the burden-based stratification.
+
+Figure 7 compares the prior and posterior distributions of low fertility probability. Under prior beliefs, the baseline probability was estimated at 20%. After accounting for high housing and cost burdens, the posterior probability increased to 38%, indicating significant explanatory power of these economic indicators.
+
+Together these findings confirm that affordability pressures are both statistically and substantively relevant predictors of national fertility trends. The Bayesian model supports the conclusion that rising costs are influencing reproductive decisions and contributing to Ireland's demographic shifts
+Fig 7 -Probability of Low Fertility Before/After Economic burdens
+
+6.Conclusions
+This study provides compelling evidence that rising housing prices and broader affordability burdens are associated with statistically significant increases in the probability of low fertility years in Ireland. By applying a Bayesian logistic regression model to over a decade of nationally representative data, we demonstrate that when both housing and cost-of-living burdens are above the national median, the probability of a birth rate falling below the national average rises from a baseline of 20% to as high as 38%.
+
+From a policy perspective, these findings have serious implications. If affordability remains unaddressed, Ireland may continue to experience fertility rates that fall below population replacement levels, potentially triggering long-term demographic and economic consequences. Measures that solely increase child-related benefits may prove insufficient if they do not address core affordability challenges, particularly those affecting younger adults trying to form families. Targeted housing reforms, wage support, or cost-of-living interventions may be more effective tools in reversing the observed fertility trends.
+
+From a methodological perspective, this project highlights the advantages of Bayesian modelling in demographic studies. The ability to formally incorporate uncertainty and prior trends provides a richer and more interpretable framework for policy inference. The model’s structure and results also demonstrate the importance of variable engineering, appropriate thresholds (e.g., median burden), and visualisation techniques in uncovering latent population dynamics.
+
+Future work could expand on this foundation by incorporating regional differences, interaction effects, and more granular household-level fertility intention data. Nonetheless, the results here reflect a statistically grounded and practically relevant analysis of a growing socio-economic challenge.
+
+
+
+
+
+References :
+
+
+Kulu, H., Mikolai, J. and Torres, C. (2021) ‘The impact of local housing market conditions on fertility decisions in the United Kingdom’, Population Research and Policy Review, 40(4), pp. 665–696. Available at: https://doi.org/10.1016/j.poprev.2021.06.001).
+
+
+Van Ham, M. and Tammaru, T. (2022) ‘The link between housing and fertility in Europe: A comparative perspective’, Population, Space and Place, 28(6), e70036. Available at: https://doi.org/10.1002/psp.70036).
+
+
+Clark, W. A. V. and Ferrer, A. (2024) House Prices and Fertility: A Review of the Relationship Between Housing Costs and Family Formation. London: Centre for Spatial Economics. Available at: https://static1.squarespace.com/static/58064a74bebafbadcd44776a/t/67b04f48000b0715d905e103/1739607888611/House_Prices_and_Fertility_latest.pdf .
+
+
+Central Statistics Office (2010) Vital Statistics Annual Report 2010. Dublin: CSO. Available at: https://www.cso.ie/en/media/csoie/releasespublications/documents/vitalstats/2010/annualreport2010.pdf .
+
+
+The Housing Agency (2024) House Price to Income Ratios by Region. Dublin: The Housing Agency. Available at: https://www.housingagency.ie/data-hub/house-price-income-ratio.
+
+
+Callaghan, N. and Ní Bhrolcháin, M. (2012) Fertility and Family Formation in Ireland: A Sociological Review. Dublin: UCD Research Repository. Available at: https://researchrepository.ucd.ie/rest/bitstreams/20763/retrieve .
+
+
+IEECP (2025) Report on Selection of Datasets and Indicators for Selected Countries: House Inc. Dublin: Institute for European Energy and Climate Policy. Available at: https://ieecp.org/wp-content/uploads/2025/02/D3.1_Report-on-Selection-of-Datasets-and-Indicators-for-Selected-Countries_HouseInc.pdf .
+
+Central Statistics Office (2024) Residential Property Price Index. Dublin: CSO. Available at: https://www.cso.ie/en/statistics/housing/residentialpropertypriceindex/
+
+
+Central Statistics Office (2024) Vital Statistics Annual Report. Dublin: CSO. Available at: https://www.cso.ie/en/statistics/birthsdeathsandmarriages/ 
+
+
+Central Statistics Office (2024) EU Survey on Income and Living Conditions (EU-SILC). Dublin: CSO. Available at: https://www.cso.ie/en/statistics/socialconditions/eusilc/
+
+
+Central Statistics Office (2024) Consumer Price Index (CPI). Dublin: CSO. Available at: https://www.cso.ie/en/statistics/prices/consumerpriceindex/
+
+
+Central Statistics Office (2024) Household Budget Survey 2020–2021. Dublin: CSO. Available at: https://www.cso.ie/en/statistics/housingandhouseholds/householdbudgetsurvey/ 
+
+
+Appendices
+
+DarynLoughlinQuantProject.ipynb
